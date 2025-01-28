@@ -20,7 +20,7 @@ pipeline{
             steps{
             gitCheckout(
                 branch: "main",
-                url: "https://github.com/vijay-durgaprasad/Java_app_3.0.git"
+                url: "https://github.com/praveen1994dec/Java_app_3.0.git"
             )
             }
         }
@@ -44,26 +44,26 @@ pipeline{
                }
             }
         }
-       //  stage('Static code analysis: Sonarqube'){
-       //   when { expression {  params.action == 'create' } }
-       //      steps{
-       //         script{
+         stage('Static code analysis: Sonarqube'){
+         when { expression {  params.action == 'create' } }
+            steps{
+               script{
                    
-       //             def SonarQubecredentialsId = 'sonarqube-api'
-       //             statiCodeAnalysis(SonarQubecredentialsId)
-       //         }
-       //      }
-       // }
-       // stage('Quality Gate Status Check : Sonarqube'){
-       //   when { expression {  params.action == 'create' } }
-       //      steps{
-       //         script{
+                   def SonarQubecredentialsId = 'sonarqube-api'
+                   statiCodeAnalysis(SonarQubecredentialsId)
+               }
+            }
+       }
+        stage('Quality Gate Status Check : Sonarqube'){
+         when { expression {  params.action == 'create' } }
+            steps{
+               script{
                    
-       //             def SonarQubecredentialsId = 'sonarqube-api'
-       //             QualityGateStatus(SonarQubecredentialsId)
-       //         }
-       //      }
-       // }
+                   def SonarQubecredentialsId = 'sonarqube-api'
+                   QualityGateStatus(SonarQubecredentialsId)
+               }
+            }
+       }
         stage('Maven Build : maven'){
          when { expression {  params.action == 'create' } }
             steps{
